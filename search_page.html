@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>City Population Search</title>
+  </head>
+  <body>
+      <input type="text" id="city" placeholder="Search city...">
+      <button type="submit" onclick="searchPopulation()">Search</button>
+    <div id="result"></div>
+    <script>
+      function searchPopulation() {
+        // Get the city name from the form
+        var city = document.getElementById("city").value;
+        console.log(city)
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:3000/search');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({ city: city }));
+
+        // Handle the server response
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+              const resultContainer = document.getElementById('result');
+              resultContainer.innerHTML = xhr.response;
+              console.log(xhr.response);
+            }
+        };
+      
+      }
+    </script>
+  </body>
+</html>
