@@ -44,7 +44,7 @@ app.post("/search", (req, res) => {
   console.log('received'+city)
   // Query the database for the population of the city
   db.query(
-    "SELECT population FROM cities WHERE city = ?",
+    "SELECT sum(population) as population FROM cities WHERE city = ? group by city",
     [city],
     (error, results) => {
       if (error) {
